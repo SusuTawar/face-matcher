@@ -17,7 +17,7 @@ model Matches {
 }
 
 model ComplaintHistory {
-  id        BigInt   @id @default(autoincrement())
+  id        Int   @id @default(autoincrement())
   requestId String
   file      String
 }
