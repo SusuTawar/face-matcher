@@ -19,6 +19,8 @@
     "@tensorflow/tfjs-node-gpu": "^4.6.0",
     "@vladmandic/face-api": "github:vladmandic/face-api",
     "cron": "^2.3.1",
+    "dotenv": "^16.0.3",
+    "dotenv-expand": "^10.0.0",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "luxon": "^3.3.0",

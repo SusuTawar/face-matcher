@@ -9,6 +9,10 @@ import { v4 as uuid } from 'uuid'
 import { PrismaClient } from '@prisma/client'
 import { DateTime } from 'luxon'
 import { CronJob } from 'cron'
+import dotenv from 'dotenv'
+import dotenvEx from 'dotenv-expand'
+
+dotenvEx.expand(dotenv.config())
 ;(async () => {
   const app = express()
   const prisma = new PrismaClient()
@@ -76,7 +80,6 @@ import { CronJob } from 'cron'
     })
   })
 
-  // DDc7KX
   app.post('/match', async (req, res) => {
     let file = req.files?.file
     if (!file) {
@@ -188,8 +191,9 @@ import { CronJob } from 'cron'
     })
   })
 
-  app.listen(3000, () => {
-    console.log('Server running on port 3000')
+  const PORT = process.env.APP_PORT || 3000
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
   })
 
   new CronJob(

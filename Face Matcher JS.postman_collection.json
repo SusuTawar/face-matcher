@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "2d3ea22b-4d3d-49b0-8211-b34b4e9a01af",
+		"name": "Face Matcher JS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/ping",
+					"path": [
+						"ping"
+					]
+				},
+				"description": "# Description\n\nsanity check"
+			},
+			"response": []
+		},
+		{
+			"name": "Register Face",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "5550123",
+							"description": "id for the image(s) to be saved as.",
+							"type": "default"
+						},
+						{
+							"key": "file",
+							"description": "file(s) to be saved as matcher",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "/register",
+					"path": [
+						"register"
+					]
+				},
+				"description": "# Description\n\nused to register an image to matcher engine\n\nNOTE: **file** can be an array of images for batch upload"
+			},
+			"response": []
+		},
+		{
+			"name": "Match",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "file to match with matching engine",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "id",
+							"value": "",
+							"description": "(OPTIONAL) id to cross reference with file",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "/match",
+					"path": [
+						"match"
+					]
+				},
+				"description": "# Description\n\nused to match the image sent with matcher engine, and return its **id**.\n\nif **id** is provided. it will check whether the image are match with the provided **id**"
+			},
+			"response": []
+		},
+		{
+			"name": "Complaint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/complaint/:id/:changeTo",
+					"path": [
+						"complaint",
+						":id",
+						":changeTo"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "requestId returned by /match"
+						},
+						{
+							"key": "changeTo",
+							"value": "",
+							"description": "id of the right face"
+						}
+					]
+				},
+				"description": "# Description\n\nAn option for re-adjusting matches, in case of the id returned in match are wrong."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const baseUrl = pm.variables.get('url');",
+					"",
+					"if (baseUrl) {",
+					"  const url = pm.request.url;",
+					"  const updatedUrl = baseUrl + url;",
+					"  ",
+					"  pm.request.url = updatedUrl;",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:3000",
+			"type": "default"
+		}
+	]
+}
